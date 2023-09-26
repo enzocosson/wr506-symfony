@@ -15,6 +15,7 @@ use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Delete;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: MovieRepository::class)]
 #[ApiResource(
@@ -45,15 +46,18 @@ class Movie
     private Collection $autors;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Length(min: 2, max: 255, maxMessage: 'le champ doit contenir entre 2 et 255 caractères')]
     private ?string $title = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[Assert\Date]
     private ?\DateTimeInterface $releaseDate = null;
 
     #[ORM\Column]
     private ?int $duration = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\NotBlank]
     private ?string $description = null;
 
     public function __construct()
