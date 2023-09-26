@@ -29,7 +29,6 @@ class ActorFixtures extends Fixture implements DependentFixtureInterface
             $manager->persist($actor);
             $this->addReference('actor_' . $i, $actor);
         }
-
         $manager->flush();
     }
 
