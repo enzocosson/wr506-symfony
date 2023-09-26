@@ -7,6 +7,7 @@ use ApiPlatform\Metadata\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: AuthorRepository::class)]
 #[ApiResource()]
@@ -27,6 +28,9 @@ class Author
 
     #[ORM\ManyToMany(targetEntity: Movie::class, mappedBy: 'autors')]
     private Collection $movies;
+
+    #[ORM\ManyToOne(inversedBy: 'actor')]
+    private ?Nationalite $nationalite = null;
 
     public function __construct()
     {
@@ -85,6 +89,18 @@ class Author
         if ($this->movies->removeElement($movie)) {
             $movie->removeautor($this);
         }
+
+        return $this;
+    }
+
+    public function getNationalite(): ?Nationalite
+    {
+        return $this->nationalite;
+    }
+
+    public function setNationalite(?Nationalite $nationalite): static
+    {
+        $this->nationalite = $nationalite;
 
         return $this;
     }
