@@ -7,10 +7,18 @@ use ApiPlatform\Metadata\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
-use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping as ORM; 
+use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
+use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Delete;
 
 #[ORM\Entity(repositoryClass: MovieRepository::class)]
 #[ApiResource(
+    normalizationContext: ['groups' => ['movie:read']],
     description: 'A movie with actors.',
     operations: [
         new Get(uriTemplate: '/movie/{id}'),
@@ -29,9 +37,11 @@ class Movie
     private ?int $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'movies')]
+    #[Groups(['movie:read'])]
     private ?Category $category = null;
 
     #[ORM\ManyToMany(targetEntity: Author::class, inversedBy: 'movies')]
+    #[Groups(['category:read','movie:read'])]
     private Collection $autors;
 
     #[ORM\Column(length: 255)]
