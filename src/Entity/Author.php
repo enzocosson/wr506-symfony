@@ -10,7 +10,10 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: AuthorRepository::class)]
-#[ApiResource()]
+#[ApiResource
+(
+    normalizationContext: ['groups' => ['author:read']]
+)]
 class Author
 {
     #[ORM\Id]
@@ -19,18 +22,21 @@ class Author
     private ?int $id = null;
 
     #[ORM\Column(length: 50)]
-    #[Groups(['movie:read'])]
+    #[Groups(['author:read'])]
     private ?string $firstName = null;
 
     #[ORM\Column(length: 50)]
-    #[Groups(['movie:read'])]
+    #[Groups(['author:read'])]
     private ?string $lastName = null;
 
     #[ORM\ManyToMany(targetEntity: Movie::class, mappedBy: 'autors')]
+    #[Groups(['author:read'])]
     private Collection $movies;
-
+    
     #[ORM\ManyToOne(inversedBy: 'actor')]
+    #[Groups(['author:read'])]
     private ?Nationalite $nationalite = null;
+    
 
     public function __construct()
     {
