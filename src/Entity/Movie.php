@@ -10,7 +10,17 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: MovieRepository::class)]
-#[ApiResource()]
+#[ApiResource(
+    description: 'A movie with actors.',
+    operations: [
+        new Get(uriTemplate: '/movie/{id}'),
+        new GetCollection(),
+        new Post(),
+        new Put(),
+        new Patch(),
+        new Delete(),
+    ]
+)]
 class Movie
 {
     #[ORM\Id]
