@@ -2,33 +2,27 @@
 
 namespace App\Entity;
 
-use App\Repository\MovieRepository;
 use ApiPlatform\Metadata\ApiResource;
+use App\Repository\MovieRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
-use Doctrine\ORM\Mapping as ORM; 
+use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
+use ApiPlatform\Metadata\ApiFilter;
+
+
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Delete;
-use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: MovieRepository::class)]
 #[ApiResource(
     normalizationContext: ['groups' => ['movie:read']],
-    description: 'A movie with actors.',
-    operations: [
-        new Get(uriTemplate: '/movie/{id}'),
-        new GetCollection(),
-        new Post(),
-        new Put(),
-        new Patch(),
-        new Delete(),
-    ]
 )]
 class Movie
 {
@@ -42,27 +36,29 @@ class Movie
     private ?Category $category = null;
 
     #[ORM\ManyToMany(targetEntity: Author::class, inversedBy: 'movies')]
-    #[Groups(['category:read','movie:read'])]
-    private Collection $autors;
+    #[Groups(['movie:read'])]
+    private Collection $actors;
 
     #[ORM\Column(length: 255)]
     #[Assert\Length(min: 2, max: 255, maxMessage: 'le champ doit contenir entre 2 et 255 caractères')]
+    #[Groups(['category:read', 'movie:read'])]
+    #[Assert\Length(min: 2, max: 255, maxMessage: 'Ecrire votre message en 255 caractères ou moins.')]
     private ?string $title = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    #[Assert\Date]
     private ?\DateTimeInterface $releaseDate = null;
 
     #[ORM\Column]
+    #[Groups(['movie:read'])]
+    #[Assert\NotBlank]
     private ?int $duration = null;
 
     #[ORM\Column(type: Types::TEXT)]
-    #[Assert\NotBlank]
     private ?string $description = null;
 
     public function __construct()
     {
-        $this->autors = new ArrayCollection();
+        $this->actors = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -85,23 +81,23 @@ class Movie
     /**
      * @return Collection<int, Author>
      */
-    public function getautors(): Collection
+    public function getActors(): Collection
     {
-        return $this->autors;
+        return $this->actors;
     }
 
-    public function addautor(Author $autor): static
+    public function addActor(Author $actor): static
     {
-        if (!$this->autors->contains($autor)) {
-            $this->autors->add($autor);
+        if (!$this->actors->contains($actor)) {
+            $this->actors->add($actor);
         }
 
         return $this;
     }
 
-    public function removeautor(Author $autor): static
+    public function removeActor(Author $actor): static
     {
-        $this->autors->removeElement($autor);
+        $this->actors->removeElement($actor);
 
         return $this;
     }
