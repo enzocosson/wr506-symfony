@@ -2,22 +2,17 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
 use App\Repository\NationaliteRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use ApiPlatform\Metadata\ApiResource;
-use App\DataFixtures\useFixtures;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
-use ApiPlatform\Metadata\Get;
-use ApiPlatform\Metadata\GetCollection;
-use ApiPlatform\Metadata\Post;
-use ApiPlatform\Metadata\Put;
-use ApiPlatform\Metadata\Patch;
-use ApiPlatform\Metadata\Delete;
 
 #[ORM\Entity(repositoryClass: NationaliteRepository::class)]
-#[ApiResource()]
+#[ApiResource(
+
+)]
 class Nationalite
 {
     #[ORM\Id]
@@ -41,7 +36,7 @@ class Nationalite
         return $this->id;
     }
 
-    public function getNationalite(): ?string
+    public function getNationalit�e(): ?string
     {
         return $this->nationalite;
     }

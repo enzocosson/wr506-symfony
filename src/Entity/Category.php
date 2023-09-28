@@ -3,14 +3,18 @@
 namespace App\Entity;
 
 use App\Repository\CategoryRepository;
-use ApiPlatform\Metadata\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Metadata\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
-#[ApiResource()]
+#[ApiResource(
+    normalizationContext: ['groups' => ['category:read']],)
+]
 class Category
 {
     #[ORM\Id]
@@ -19,9 +23,12 @@ class Category
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['category:read', 'movie:read'])]
+    #[Assert\Length(min: 2, max: 50, maxMessage: 'Ecrire votre message en 255 caractères ou moins.')]
     private ?string $name = null;
 
     #[ORM\OneToMany(mappedBy: 'category', targetEntity: Movie::class)]
+    #[Groups(['category:read'])]
     private Collection $movies;
 
     public function __construct()
