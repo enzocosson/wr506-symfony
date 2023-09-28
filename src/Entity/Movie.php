@@ -11,6 +11,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Doctrine\Orm\Filter\RangeFilter;
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 
 
 #[ORM\Entity(repositoryClass: MovieRepository::class)]
@@ -35,6 +37,7 @@ class Movie
     #[ORM\Column(length: 255)]
     #[Groups(['category:read', 'movie:read'])]
     #[Assert\Length(min: 2, max: 255, maxMessage: 'Ecrire votre message en 255 caractères ou moins.')]
+    #[ApiFilter(SearchFilter::class, strategy: 'partial')]
     private ?string $title = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
@@ -45,6 +48,7 @@ class Movie
     #[ORM\Column]
     #[Groups(['movie:read'])]
     #[Assert\NotBlank]
+    #[ApiFilter(RangeFilter::class)]
     private ?int $duration = null;
 
     #[ORM\Column(type: Types::TEXT)]
