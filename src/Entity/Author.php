@@ -12,8 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 
 #[ORM\Entity(repositoryClass: AuthorRepository::class)]
-#[ApiResource(
-    normalizationContext: ['groups' => ['author:read']],)]
+#[ApiResource()]
 class Author
 {
     #[ORM\Id]
@@ -22,22 +21,21 @@ class Author
     private ?int $id = null;
 
     #[ORM\Column(length: 50)]
-    #[Groups(['movie:read', 'author:read'])]
-    #[Assert\Length(min: 2, max: 50, maxMessage: 'Ecrire votre message en 50 caractères ou moins.')]
+    #[Groups(['movie:read', 'movie:read'])]
+    #[Assert\Length(min: 2, max: 50, maxMessage: 'le champ doit contenir entre 2 et 50 caractères')]
     private ?string $firstName = null;
 
     #[ORM\Column(length: 50)]
-    #[Groups(['movie:read', 'author:read'])]
-    #[Assert\Length(min: 2, max: 50, maxMessage: 'Ecrire votre message en 50 caractères ou moins.')]
+    #[Groups(['movie:read', 'movie:read'])]
+    #[Assert\Length(min: 2, max: 50, maxMessage: 'le champ doit contenir entre 2 et 50 caractères')]
     private ?string $lastName = null;
 
     #[ORM\ManyToMany(targetEntity: Movie::class, mappedBy: 'actors')]
-    #[Groups(['author:read'])]
     private Collection $movies;
 
     #[ORM\ManyToOne(inversedBy: 'actor')]
-    #[Groups(['author:read'])]
     private ?Nationalite $nationalite = null;
+    
 
     public function __construct()
     {
