@@ -10,6 +10,7 @@ use ApiPlatform\Metadata\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
+
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
 #[ApiResource(
     normalizationContext: ['groups' => ['category:read']],)
@@ -22,7 +23,6 @@ class Category
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\Length(min: 2, max: 255, maxMessage: 'le champ doit contenir entre 2 et 255 caractères')]
     #[Groups(['category:read', 'movie:read'])]
     #[Assert\Length(min: 2, max: 50, maxMessage: 'Ecrire votre message en 255 caractères ou moins.')]
     private ?string $name = null;

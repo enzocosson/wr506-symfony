@@ -13,13 +13,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 use ApiPlatform\Metadata\ApiFilter;
 
 
-use ApiPlatform\Metadata\Get;
-use ApiPlatform\Metadata\GetCollection;
-use ApiPlatform\Metadata\Post;
-use ApiPlatform\Metadata\Put;
-use ApiPlatform\Metadata\Patch;
-use ApiPlatform\Metadata\Delete;
-
 #[ORM\Entity(repositoryClass: MovieRepository::class)]
 #[ApiResource(
     normalizationContext: ['groups' => ['movie:read']],
@@ -40,12 +33,13 @@ class Movie
     private Collection $actors;
 
     #[ORM\Column(length: 255)]
-    #[Assert\Length(min: 2, max: 255, maxMessage: 'le champ doit contenir entre 2 et 255 caractères')]
     #[Groups(['category:read', 'movie:read'])]
     #[Assert\Length(min: 2, max: 255, maxMessage: 'Ecrire votre message en 255 caractères ou moins.')]
     private ?string $title = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[Groups(['movie:read'])]
+    #[Assert\NotBlank]
     private ?\DateTimeInterface $releaseDate = null;
 
     #[ORM\Column]
@@ -54,6 +48,8 @@ class Movie
     private ?int $duration = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Groups(['movie:read'])]
+    #[Assert\NotBlank]
     private ?string $description = null;
 
     public function __construct()
