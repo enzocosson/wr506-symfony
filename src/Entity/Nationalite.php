@@ -11,19 +11,22 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: NationaliteRepository::class)]
 #[ApiResource(
-
+    normalizationContext: ['groups' => ['nationalite:read']],
 )]
 class Nationalite
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['nationalite:read', 'author:read'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 50)]
+    #[Groups(['nationalite:read', 'author:read'])]
     private ?string $nationalite = null;
 
     #[ORM\OneToMany(mappedBy: 'nationalite', targetEntity: Author::class)]
+    #[Groups(['nationalite:read'])]
     private Collection $actor;
 
     public function __construct()
@@ -36,7 +39,7 @@ class Nationalite
         return $this->id;
     }
 
-    public function getNationalit�e(): ?string
+    public function getNationalite(): ?string
     {
         return $this->nationalite;
     }

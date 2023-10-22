@@ -19,7 +19,11 @@ class MovieFixtures extends Fixture implements DependentFixtureInterface
             $movie->setReleaseDate(new \DateTime());
             $movie->setDuration(rand(60, 180));
             $movie->setDescription('Synopsis ' . $i);
+            $movie->setPoster('https://picsum.photos/seed/' . $i . '/300/400');
+            $movie->setPosterPortrait('https://picsum.photos/seed/' . $i . '/400/300');
             $movie->setCategory($this->getReference('category_' . rand(1, 5)));
+            $movie->setClassement($i);
+            $movie->setTrailer('https://www.youtube.com/embed/5PSNL1qE6VY');
 
             // Ajoute entre 2 et 6 acteurs dans le films, tous différents en se basant sur les fixtures
             $actors = [];

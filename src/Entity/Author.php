@@ -19,15 +19,16 @@ class Author
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['author:read', 'movie:read', 'nationalite:read'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 50)]
-    #[Groups(['movie:read', 'author:read'])]
+    #[Groups(['author:read', 'movie:read', 'nationalite:read'])]
     #[Assert\Length(min: 2, max: 50, maxMessage: 'Ecrire votre message en 50 caractères ou moins.')]
     private ?string $firstName = null;
 
     #[ORM\Column(length: 50)]
-    #[Groups(['movie:read', 'author:read'])]
+    #[Groups(['author:read', 'movie:read', 'nationalite:read'])]
     #[Assert\Length(min: 2, max: 50, maxMessage: 'Ecrire votre message en 50 caractères ou moins.')]
     private ?string $lastName = null;
 
