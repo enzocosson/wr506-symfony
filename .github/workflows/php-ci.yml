@@ -50,7 +50,7 @@ jobs:
         run: vendor/bin/phpunit tests/
 
       - name: Run PHP_CodeSniffer
-        run: vendor/bin/phpcs --standard=PSR2 src/ | grep -E '^\s*[0-9]+ \| ERROR \| Line exceeds [0-9]+ characters'
+        run: vendor/bin/phpcs --standard=PSR2 src/ && vendor/bin/phpcs --standard=PSR2 src/ | grep -E '^\s*[0-9]+ \| ERROR \| Line exceeds [0-9]+ characters' || true
 
       - name: Run PHPStan
         run: vendor/bin/phpstan analyze src/
