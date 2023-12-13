@@ -19,6 +19,7 @@ use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 #[ApiResource(
     normalizationContext: ['groups' => ['movie:read']],
 )]
+#[ApiFilter(SearchFilter::class, properties: ['id' => 'exact', 'title' => 'partial'])]
 class Movie
 {
     #[ORM\Id]
