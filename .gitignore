@@ -24,3 +24,12 @@
 ###> lexik/jwt-authentication-bundle ###
 /config/jwt/*.pem
 ###< lexik/jwt-authentication-bundle ###
+
+# Ignorer les fichiers d'environnement
+.env
+.env.local
+.env.*.local
+
+# Ignorer les fichiers de configuration PHPUnit
+/phpunit.xml
+.phpunit.result.cache
