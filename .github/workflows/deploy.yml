@@ -18,6 +18,7 @@ jobs:
         KEY: ${{ secrets.SSHKEY }}
         script: |
           cd public_html/travaux/wr506d
+          rm -R wr506-symfony
           git clone git@github.com:enzocosson/wr506-symfony.git
           cd wr506-symfony
           git pull
