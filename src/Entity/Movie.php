@@ -31,7 +31,7 @@ class Movie
     #[Groups(['movie:read'])]
     private ?Category $category = null;
 
-    #[ORM\ManyToMany(targetEntity: Actor::class, inversedBy: 'movies')]
+    #[ORM\ManyToMany(targetEntity: Actor::class, inversedBy: 'movies', cascade: ['persist'])]
     #[Groups(['movie:read'])]
     private Collection $actors;
 
@@ -73,7 +73,7 @@ class Movie
     private ?string $classement = null;
 
     #[ORM\Column(length: 2500)]
-        #[Groups(['movie:read'])]
+    #[Groups(['movie:read'])]
     #[Assert\NotBlank]
     private ?string $trailer = null;
 
