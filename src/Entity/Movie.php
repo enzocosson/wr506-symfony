@@ -24,19 +24,19 @@ class Movie
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['movie:read', 'author:read', 'category:read'])]
+    #[Groups(['movie:read', 'actor:read', 'category:read'])]
     private ?int $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'movies')]
     #[Groups(['movie:read'])]
     private ?Category $category = null;
 
-    #[ORM\ManyToMany(targetEntity: Author::class, inversedBy: 'movies')]
+    #[ORM\ManyToMany(targetEntity: Actor::class, inversedBy: 'movies')]
     #[Groups(['movie:read'])]
     private Collection $actors;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['movie:read', 'author:read', 'category:read'])]
+    #[Groups(['movie:read', 'actor:read', 'category:read'])]
     #[Assert\Length(min: 2, max: 255, maxMessage: 'Ecrire votre message en 255 caractères ou moins.')]
     #[ApiFilter(SearchFilter::class, strategy: 'partial')]
     private ?string $title = null;
@@ -100,14 +100,14 @@ class Movie
     }
 
     /**
-     * @return Collection<int, Author>
+     * @return Collection<int, Actor>
      */
     public function getActors(): Collection
     {
         return $this->actors;
     }
 
-    public function addActor(Author $actor): static
+    public function addActor(Actor $actor): static
     {
         if (!$this->actors->contains($actor)) {
             $this->actors->add($actor);
@@ -116,7 +116,7 @@ class Movie
         return $this;
     }
 
-    public function removeActor(Author $actor): static
+    public function removeActor(Actor $actor): static
     {
         $this->actors->removeElement($actor);
 

@@ -12,16 +12,31 @@ class MovieFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {
+        $movieTitles = [
+            'Stranger Things', 'The Crown', 'Black Mirror', 'Narcos', 'Money Heist',
+            'Ozark', 'Breaking Bad', 'Dark', 'The Witcher', 'Mindhunter',
+            'Lucifer', 'House of Cards', 'The Umbrella Academy', 'Peaky Blinders',
+            'La Casa de Papel', '13 Reasons Why', 'The Haunting of Hill House', 'Altered Carbon',
+            'The Queen\'s Gambit', 'The Irishman', 'Bird Box', 'Extraction', 'Enola Holmes'
+        ];
+
         // Génère 40 films avec un titre, une date de sortie, une durée, un synopsis, une catégorie (en lien avec les autres fixtures) et entre 2 et 4 acteurs, différents (en lien avec les autres fixtures)
+
+        $totalTitles = count($movieTitles);
 
         foreach (range(1, 40) as $i) {
             $movie = new Movie();
-            $movie->setTitle('Movie ' . $i)
+            
+            // Utiliser l'opérateur modulo pour s'assurer que l'index est valide
+            $titleIndex = ($i - 1) % $totalTitles;
+            $title = $movieTitles[$titleIndex] ?? 'Untitled Movie';
+
+            $movie->setTitle($title)
                 ->setReleaseDate(new DateTime())
                 ->setDuration(rand(60, 180))
-                ->setDescription('Synopsis ' . $i)
-                ->setPoster("https://picsum.photos/seed/{$i}/300/400")
-                ->setPosterPortrait("https://picsum.photos/seed/{$i}/400/300")
+                ->setDescription('Synopsis for ' . $title)
+                ->setPoster("https://source.unsplash.com/300x400/?netflix,{$title}") // Utiliser le titre pour obtenir une image unique
+                ->setPosterPortrait("https://source.unsplash.com/400x300/?netflix,{$title}") // Utiliser le titre pour obtenir une image unique
                 ->setCategory($this->getReference('category_' . rand(1, 5)))
                 ->setClassement($i)
                 ->setTrailer('https://www.youtube.com/embed/5PSNL1qE6VY');

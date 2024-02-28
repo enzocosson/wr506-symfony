@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use App\Repository\AuthorRepository;
+use App\Repository\ActorRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -10,35 +10,39 @@ use ApiPlatform\Metadata\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
-#[ORM\Entity(repositoryClass: AuthorRepository::class)]
+#[ORM\Entity(repositoryClass: ActorRepository::class)]
 #[ApiResource(
-    normalizationContext: ['groups' => ['author:read']],
+    normalizationContext: ['groups' => ['actor:read']],
 )]
-class Author
+class Actor
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['author:read', 'movie:read', 'nationalite:read'])]
+    #[Groups(['actor:read', 'movie:read', 'nationalite:read'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 50)]
-    #[Groups(['author:read', 'movie:read', 'nationalite:read'])]
+    #[Groups(['actor:read', 'movie:read', 'nationalite:read'])]
     #[Assert\Length(min: 2, max: 50, maxMessage: 'Ecrire votre message en 50 caractères ou moins.')]
     private ?string $firstName = null;
 
     #[ORM\Column(length: 50)]
-    #[Groups(['author:read', 'movie:read', 'nationalite:read'])]
+    #[Groups(['actor:read', 'movie:read', 'nationalite:read'])]
     #[Assert\Length(min: 2, max: 50, maxMessage: 'Ecrire votre message en 50 caractères ou moins.')]
     private ?string $lastName = null;
 
     #[ORM\ManyToMany(targetEntity: Movie::class, mappedBy: 'actors')]
-    #[Groups(['author:read'])]
+    #[Groups(['actor:read'])]
     private Collection $movies;
 
     #[ORM\ManyToOne(inversedBy: 'actor')]
-    #[Groups(['author:read'])]
+    #[Groups(['actor:read'])]
     private ?Nationalite $nationalite = null;
+
+    #[ORM\Column(length: 500)]
+    #[Groups(['actor:read'])]
+    private ?string $photo = null;
 
     public function __construct()
     {
@@ -109,6 +113,18 @@ class Author
     public function setNationalite(?Nationalite $nationalite): static
     {
         $this->nationalite = $nationalite;
+
+        return $this;
+    }
+
+    public function getPhoto(): ?string
+    {
+        return $this->photo;
+    }
+
+    public function setPhoto(string $photo): static
+    {
+        $this->photo = $photo;
 
         return $this;
     }
