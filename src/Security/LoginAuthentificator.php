@@ -50,11 +50,9 @@ public function onAuthenticationSuccess(Request $request, TokenInterface $token,
         return new RedirectResponse($targetPath);
     }
 
-    // For example:
     return new RedirectResponse($this->urlGenerator->generate('app_demo'));
-    // throw new \Exception('TODO: provide a valid redirect inside '.FILE);
 }
-// ...
+
 
 
     protected function getLoginUrl(Request $request): string
