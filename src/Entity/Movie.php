@@ -196,7 +196,7 @@ class Movie
         return $this;
     }
 
-    public function getDuration(): ?int
+    public function getDuration(): ?string
     {
         return $this->duration;
     }
@@ -204,10 +204,10 @@ class Movie
     public function setDuration(int $duration): static
     {
         $this->duration = $duration;
-
+    
         return $this;
-
     }
+    
 
     public function getTrailer(): ?string
     {
