@@ -1,27 +1,24 @@
-name: Deploy
-
 on: [push]
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
+    - uses: actions/checkout@v1
 
-      - name: Deploy symfony app
-        uses: appleboy/ssh-action@master
-        with:
-          HOST: ${{ secrets.HOST }}
-          USERNAME: ${{ secrets.USERNAME }}
-          PORT: ${{ secrets.PORT }}
-          KEY: ${{ secrets.SSHKEY }}
-          script: |
-            cd public_html/
-            git clone https://github.com/enzocosson/wr506-symfony.git
-            cd wr506-symfony
-            git pull
-            composer install
-            php bin/console c:c
-            php bin/console d:s:u --force
+    - name: Demo LS on VPS
+      uses: appleboy/ssh-action@master
+      with:
+        HOST: ${{ secrets.HOST }}
+        USERNAME: ${{ secrets.USERNAME }}
+        PORT: ${{ secrets.PORT }}
+        KEY: ${{ secrets.SSHKEY }}
+        script: |
+          cd public_html/
+          rm -R wr506-symfony
+          git clone git@github.com:enzocosson/wr506-symfony.git
+          cd wr506-symfony
+          git pull
+          composer install
+          php bin/console c:c
