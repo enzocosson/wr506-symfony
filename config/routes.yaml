@@ -6,7 +6,3 @@ controllers:
 auth:
   path: /auth
   methods: ["POST"]
-create_media_object:
-  path: "/api/media_objects"
-  controller: 'App\Controller\CreateMediaObjectAction'
-  methods: ["POST"]
