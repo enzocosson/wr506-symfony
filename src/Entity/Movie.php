@@ -22,6 +22,7 @@ use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Doctrine\Orm\Filter\RangeFilter;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use DateTimeImmutable;
 
 #[ORM\Entity(repositoryClass: MovieRepository::class)]
 #[Vich\Uploadable]
@@ -111,7 +112,6 @@ class Movie
     private ?string $imageName = null;
 
     #[ORM\Column(nullable: true)]
-    #[Groups(['movie:read'])]
     private ?\DateTimeImmutable $updatedAt = null;
 
     public function __construct()
