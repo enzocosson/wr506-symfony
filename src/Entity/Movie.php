@@ -111,6 +111,7 @@ class Movie
     private ?string $imageName = null;
 
     #[ORM\Column(nullable: true)]
+    #[Groups(['movie:read'])]
     private ?\DateTimeImmutable $updatedAt = null;
 
     public function __construct()
