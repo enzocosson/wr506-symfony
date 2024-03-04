@@ -38,7 +38,9 @@ use DateTimeImmutable;
         ),
         new Patch(
             inputFormats: ['multipart' => ['multipart/form-data']],
-
+        ),
+        new Put(
+            inputFormats: ['multipart' => ['multipart/form-data']],
         ),
         new Post(
             inputFormats: ['multipart' => ['multipart/form-data']],

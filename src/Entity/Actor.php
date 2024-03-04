@@ -32,7 +32,7 @@ class Actor
     #[Assert\Length(min: 2, max: 50, maxMessage: 'Ecrire votre message en 50 caractères ou moins.')]
     private ?string $lastName = null;
 
-    #[ORM\ManyToMany(targetEntity: Movie::class, mappedBy: 'actors')]
+    #[ORM\ManyToMany(targetEntity: Movie::class, mappedBy: 'actors', cascade: ['persist'])]
     #[Groups(['actor:read'])]
     private Collection $movies;
 
