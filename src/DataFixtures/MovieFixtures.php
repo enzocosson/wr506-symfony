@@ -23,6 +23,50 @@ class MovieFixtures extends Fixture implements DependentFixtureInterface
             'Dragon', 'Ready Player One', 'The Innocent', 'The Mist', 'The Politician',
             'The Rain', 'The Sinner'
         ];
+
+        $trailers = [
+            'Stranger Things' => 'https://www.youtube.com/embed/vgiVAHcTh9A?si=iWv3Ug---pfXCqPp',
+            'The Crown' => 'https://www.youtube.com/embed/vgiVAHcTh9A?si=iWv3Ug---pfXCqPp',
+            'Black Mirror' => 'https://www.youtube.com/embed/vgiVAHcTh9A?si=iWv3Ug---pfXCqPp',
+            'Narcos' => 'https://www.youtube.com/embed/vgiVAHcTh9A?si=iWv3Ug---pfXCqPp',
+            'Money Heist' => 'https://www.youtube.com/embed/vgiVAHcTh9A?si=iWv3Ug---pfXCqPp',
+            'Ozark' => 'https://www.youtube.com/embed/vgiVAHcTh9A?si=iWv3Ug---pfXCqPp',
+            'Breaking Bad' => 'https://www.youtube.com/embed/vgiVAHcTh9A?si=iWv3Ug---pfXCqPp',
+            'Dark' => 'https://www.youtube.com/embed/vgiVAHcTh9A?si=iWv3Ug---pfXCqPp',
+            'The Witcher' => 'https://www.youtube.com/embed/vgiVAHcTh9A?si=iWv3Ug---pfXCqPp',
+            'Mindhunter' => 'https://www.youtube.com/embed/vgiVAHcTh9A?si=iWv3Ug---pfXCqPp',
+            'Lucifer' => 'https://www.youtube.com/embed/vgiVAHcTh9A?si=iWv3Ug---pfXCqPp',
+            'House of Cards' => 'https://www.youtube.com/embed/vgiVAHcTh9A?si=iWv3Ug---pfXCqPp',
+            'The Umbrella Academy' => 'https://www.youtube.com/embed/vgiVAHcTh9A?si=iWv3Ug---pfXCqPp',
+            'Peaky Blinders' => 'https://www.youtube.com/embed/vgiVAHcTh9A?si=iWv3Ug---pfXCqPp',
+            'La Casa de Papel' => 'https://www.youtube.com/embed/vgiVAHcTh9A?si=iWv3Ug---pfXCqPp',
+            '13 Reasons Why' => 'https://www.youtube.com/embed/vgiVAHcTh9A?si=iWv3Ug---pfXCqPp',
+            'The Haunting of Hill House' => 'https://www.youtube.com/embed/vgiVAHcTh9A?si=iWv3Ug---pfXCqPp',
+            'Altered Carbon' => 'https://www.youtube.com/embed/vgiVAHcTh9A?si=iWv3Ug---pfXCqPp',
+            'The Queen\'s Gambit' => 'https://www.youtube.com/embed/vgiVAHcTh9A?si=iWv3Ug---pfXCqPp',
+            'The Irishman' => 'https://www.youtube.com/embed/vgiVAHcTh9A?si=iWv3Ug---pfXCqPp',
+            'Bird Box' => 'https://www.youtube.com/embed/vgiVAHcTh9A?si=iWv3Ug---pfXCqPp',
+            'Extraction' => 'https://www.youtube.com/embed/vgiVAHcTh9A?si=iWv3Ug---pfXCqPp',
+            'Enola Holmes' => 'https://www.youtube.com/embed/vgiVAHcTh9A?si=iWv3Ug---pfXCqPp',
+            'Sex Education' => 'https://www.youtube.com/embed/vgiVAHcTh9A?si=iWv3Ug---pfXCqPp',
+            'Elite' => 'https://www.youtube.com/embed/vgiVAHcTh9A?si=iWv3Ug---pfXCqPp',
+            'The Punisher' => 'https://www.youtube.com/embed/vgiVAHcTh9A?si=iWv3Ug---pfXCqPp',
+            'The Stranger' => 'https://www.youtube.com/embed/vgiVAHcTh9A?si=iWv3Ug---pfXCqPp',
+            'The Society' => 'https://www.youtube.com/embed/vgiVAHcTh9A?si=iWv3Ug---pfXCqPp',
+            'The Dragon Prince' => 'https://www.youtube.com/embed/vgiVAHcTh9A?si=iWv3Ug---pfXCqPp',
+            'Fury' => 'https://www.youtube.com/embed/vgiVAHcTh9A?si=iWv3Ug---pfXCqPp',
+            'The Order' => 'https://www.youtube.com/embed/vgiVAHcTh9A?si=iWv3Ug---pfXCqPp',
+            'The Protector' => 'https://www.youtube.com/embed/vgiVAHcTh9A?si=iWv3Ug---pfXCqPp',
+            'The Spy' => 'https://www.youtube.com/embed/vgiVAHcTh9A?si=iWv3Ug---pfXCqPp',
+            'Dragon' => 'https://www.youtube.com/embed/vgiVAHcTh9A?si=iWv3Ug---pfXCqPp',
+            'Ready Player One' => 'https://www.youtube.com/embed/vgiVAHcTh9A?si=iWv3Ug---pfXCqPp',
+            'The Innocent' => 'https://www.youtube.com/embed/vgiVAHcTh9A?si=iWv3Ug---pfXCqPp',
+            'The Mist' => 'https://www.youtube.com/embed/vgiVAHcTh9A?si=iWv3Ug---pfXCqPp',
+            'The Politician' => 'https://www.youtube.com/embed/vgiVAHcTh9A?si=iWv3Ug---pfXCqPp',
+            'The Rain' => 'https://www.youtube.com/embed/vgiVAHcTh9A?si=iWv3Ug---pfXCqPp',
+            'The Sinner' => 'https://www.youtube.com/embed/vgiVAHcTh9A?si=iWv3Ug---pfXCqPp',
+        ];
+        
         
 
         // Génère 40 films avec un titre, une date de sortie, une durée, un synopsis, une catégorie (en lien avec les autres fixtures) et entre 2 et 4 acteurs, différents (en lien avec les autres fixtures)
@@ -41,7 +85,7 @@ class MovieFixtures extends Fixture implements DependentFixtureInterface
                 ->setDuration(rand(60, 180))
                 ->setDescription('Synopsis for ' . $title)
                 ->setCategory($this->getReference('category_' . rand(1, 5)))
-                ->setTrailer('https://www.youtube.com/embed/5PSNL1qE6VY');
+                ->setTrailer($trailers[$title]);
                 $imageName = strtolower(str_replace(' ', '-', $title)) . '.jpeg';
                 $movie->setImageName($imageName);
                 

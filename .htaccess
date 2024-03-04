@@ -1,0 +1,6 @@
+<Files .env>
+    Deny from all
+</Files>
+<Files .env.local>
+    Deny from all
+</Files>
