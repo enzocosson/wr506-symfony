@@ -1,17 +1,13 @@
-on:
-  push:
-    branches:
-      - main
+on: [push]
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v2
+    - uses: actions/checkout@v1
 
-    - name: SSH into Server and Deploy
+    - name: Demo LS on VPS
       uses: appleboy/ssh-action@master
       with:
         HOST: ${{ secrets.HOST }}
@@ -21,19 +17,17 @@ jobs:
         script: |
           cd public_html/travaux/wr506-symfony
 
+          # Mettre à jour le code avec git pull
           git pull origin main
 
-          echo "Debug: Trying to connect to the database on 127.0.0.1:3306"
+          # Mettre à jour le schéma de la base de données
+          php bin/console doctrine:schema:update --force
 
-          telnet 127.0.0.1 3306
-
-          echo "Debug: Trying to connect to the database via MySQL command"
-          mysql -h 127.0.0.1 -u mmi21e03 -pEcLm/2k21_7810
-
-          php bin/console doctrine:schema:update --complete --force
-
+          # Installer les dépendances Symfony
           composer install --no-interaction
 
+          # Charger les fixtures
           php bin/console doctrine:fixtures:load --no-interaction || (echo "Fixture loading failed" && exit 1)
 
+          # Afficher un message de déploiement réussi
           echo "Deployment successful"
