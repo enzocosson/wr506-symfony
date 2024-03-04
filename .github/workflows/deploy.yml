@@ -17,7 +17,7 @@ jobs:
         script: |
           cd public_html/travaux/wr506-symfony
           git fetch
-          git reset --hard origin/master
+          git reset --hard origin/main
           
           php bin/console doctrine:schema:update --force
 
