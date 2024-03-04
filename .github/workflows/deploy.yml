@@ -16,8 +16,7 @@ jobs:
         KEY: ${{ secrets.SSHKEY }}
         script: |
           cd public_html/travaux/wr506-symfony
-          git fetch
-          git reset --hard origin/main
+          git pull origin main
           
           php bin/console doctrine:schema:update --force
 
