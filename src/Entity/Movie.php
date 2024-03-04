@@ -75,7 +75,7 @@ class Movie
     #[Assert\NotBlank(message: 'Category is required')]
     private ?Category $category = null;
 
-    #[ORM\ManyToMany(targetEntity: Actor::class, inversedBy: 'movies')]
+    #[ORM\ManyToMany(targetEntity: Actor::class, inversedBy: 'movies', cascade: ['persist'])]
     #[Groups(['movie:read', 'movie:write'])]
     #[Assert\NotBlank(message: 'At least one actor is required')]
     private Collection $actors;
