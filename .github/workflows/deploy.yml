@@ -7,6 +7,14 @@ jobs:
     steps:
     - uses: actions/checkout@v1
 
+    - name: Debugging Info
+      run: |
+        echo "Debugging Database Connection:"
+        echo "Host: ${{ secrets.HOST }}"
+        echo "Username: ${{ secrets.USERNAME }}"
+        echo "Port: ${{ secrets.PORT }}"
+        echo "SSH Key: ${{ secrets.SSHKEY }}"
+
     - name: Deploy
       uses: appleboy/ssh-action@master
       with:
@@ -16,7 +24,14 @@ jobs:
         KEY: ${{ secrets.SSHKEY }}
         script: |
           cd public_html/travaux/wr506-symfony
+
+          echo "Debugging Database Connection (Before Git Pull):"
           git pull origin main
+
+          echo "Debugging Database Connection (After Git Pull):"
+          echo "Content of .env file:"
+          cat .env
+
           composer install
           php bin/console c:c
           php bin/console d:s:u --complete --force
