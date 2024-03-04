@@ -5,37 +5,37 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v1
+      - uses: actions/checkout@v1
 
-    - name: Debugging Info
-      run: |
-        echo "Debugging Database Connection:"
-        echo "Host: ${{ secrets.HOST }}"
-        echo "Username: ${{ secrets.USERNAME }}"
-        echo "Port: ${{ secrets.PORT }}"
-        echo "SSH Key: ${{ secrets.SSHKEY }}"
+      - name: Debugging Info
+        run: |
+          echo "Debugging Database Connection:"
+          echo "Host: ${{ secrets.HOST }}"
+          echo "Username: ${{ secrets.USERNAME }}"
+          echo "Port: ${{ secrets.PORT }}"
+          echo "SSH Key: ${{ secrets.SSHKEY }}"
 
-    - name: Deploy
-      uses: appleboy/ssh-action@master
-      with:
-        HOST: ${{ secrets.HOST }}
-        USERNAME: ${{ secrets.USERNAME }}
-        PORT: ${{ secrets.PORT }}
-        KEY: ${{ secrets.SSHKEY }}
-        script: |
-          cd public_html/symfony-s5
+      - name: Deploy
+        uses: appleboy/ssh-action@master
+        with:
+          HOST: ${{ secrets.HOST }}
+          USERNAME: ${{ secrets.USERNAME }}
+          PORT: ${{ secrets.PORT }}
+          KEY: ${{ secrets.SSHKEY }}
+          script: |
+            cd public_html/wr506-symfony
 
-          echo "Debugging Database Connection (Before Git Pull):"
-          git pull origin main
+            echo "Debugging Database Connection (Before Git Pull):"
+            git pull origin main
 
-          echo "Debugging Database Connection (After Git Pull):"
-          echo "Content of .env file:"
-          cat .env
+            echo "Debugging Database Connection (After Git Pull):"
+            echo "Content of .env file:"
+            cat .env
 
-          composer install
-          php bin/console c:c
-          php bin/console d:s:u --complete --force
+            composer install
+            php bin/console c:c
+            php bin/console d:s:u --complete --force
 
-          php bin/console doctrine:fixtures:load --no-interaction || (echo "Fixture loading failed" && exit 1)
+            php bin/console doctrine:fixtures:load --no-interaction || (echo "Fixture loading failed" && exit 1)
 
-          echo "Deployment successful"
+            echo "Deployment successful"
