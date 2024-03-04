@@ -14,16 +14,22 @@ class UserFixtures extends Fixture
         protected UserPasswordHasherInterface $passwordHasherInterface
     ) {
     }
+
     public function load(ObjectManager $manager): void
     {
         $user = new User();
+        $user->setFirstName('Enzo');
+        $user->setLastName('Cosson');
         $user->setEmail('user@mail.com');
         $user->setPassword($this->passwordHasherInterface->hashPassword(
             $user,
             'test'
         ));
-        $manager->persist($user);
+        
+        // Ajoutez la photo avec l'URL appropriée
+        $user->setPhoto('pp1.png');
 
+        $manager->persist($user);
         $manager->flush();
     }
 }
