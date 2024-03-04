@@ -1,13 +1,17 @@
-on: [push]
+on:
+  push:
+    branches:
+      - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v1
+    - name: Checkout Repository
+      uses: actions/checkout@v2
 
-    - name: Demo LS on VPS
+    - name: SSH into Server and Deploy
       uses: appleboy/ssh-action@master
       with:
         HOST: ${{ secrets.HOST }}
@@ -16,9 +20,17 @@ jobs:
         KEY: ${{ secrets.SSHKEY }}
         script: |
           cd public_html/travaux/wr506-symfony
+
           git pull origin main
-          
-          php bin/console doctrine:schema:update --force
+
+          echo "Debug: Trying to connect to the database on 127.0.0.1:3306"
+
+          telnet 127.0.0.1 3306
+
+          echo "Debug: Trying to connect to the database via MySQL command"
+          mysql -h 127.0.0.1 -u mmi21e03 -pEcLm/2k21_7810
+
+          php bin/console doctrine:schema:update --complete --force
 
           composer install --no-interaction
 
