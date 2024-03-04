@@ -19,7 +19,7 @@ jobs:
           git pull origin main
           composer install
           php bin/console c:c
-          php bin/console d:s:u --force
+          php bin/console d:s:u --complete --force
 
           php bin/console doctrine:fixtures:load --no-interaction || (echo "Fixture loading failed" && exit 1)
 
