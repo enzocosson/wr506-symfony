@@ -1,0 +1,28 @@
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+
+    - name: Demo LS on VPS
+      uses: appleboy/ssh-action@master
+      with:
+        HOST: ${{ secrets.HOST }}
+        USERNAME: ${{ secrets.USERNAME }}
+        PORT: ${{ secrets.PORT }}
+        KEY: ${{ secrets.SSHKEY }}
+        script: |
+          cd public_html/travaux/wr506-symfony
+          git fetch
+          git reset --hard origin/main
+          
+          php bin/console doctrine:schema:update --force
+
+          composer install --no-interaction
+
+          php bin/console doctrine:fixtures:load --no-interaction || (echo "Fixture loading failed" && exit 1)
+
+          echo "Deployment successful"

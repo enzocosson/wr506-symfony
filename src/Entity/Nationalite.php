@@ -18,14 +18,14 @@ class Nationalite
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['nationalite:read', 'author:read'])]
+    #[Groups(['nationalite:read', 'actor:read'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 50)]
-    #[Groups(['nationalite:read', 'author:read'])]
+    #[Groups(['nationalite:read', 'actor:read'])]
     private ?string $nationalite = null;
 
-    #[ORM\OneToMany(mappedBy: 'nationalite', targetEntity: Author::class)]
+    #[ORM\OneToMany(mappedBy: 'nationalite', targetEntity: Actor::class)]
     #[Groups(['nationalite:read'])]
     private Collection $actor;
 
@@ -52,14 +52,14 @@ class Nationalite
     }
 
     /**
-     * @return Collection<int, Author>
+     * @return Collection<int, Actor>
      */
     public function getActor(): Collection
     {
         return $this->actor;
     }
 
-    public function addActor(Author $actor): static
+    public function addActor(Actor $actor): static
     {
         if (!$this->actor->contains($actor)) {
             $this->actor->add($actor);
@@ -69,7 +69,7 @@ class Nationalite
         return $this;
     }
 
-    public function removeActor(Author $actor): static
+    public function removeActor(Actor $actor): static
     {
         if ($this->actor->removeElement($actor)) {
             // set the owning side to null (unless already changed)
