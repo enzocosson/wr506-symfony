@@ -7,7 +7,15 @@ jobs:
     steps:
     - uses: actions/checkout@v1
 
-    - name: Demo LS on VPS
+    - name: Debugging Info
+      run: |
+        echo "Debugging Database Connection:"
+        echo "Host: ${{ secrets.HOST }}"
+        echo "Username: ${{ secrets.USERNAME }}"
+        echo "Port: ${{ secrets.PORT }}"
+        echo "SSH Key: ${{ secrets.SSHKEY }}"
+
+    - name: Deploy
       uses: appleboy/ssh-action@master
       with:
         HOST: ${{ secrets.HOST }}
@@ -17,17 +25,17 @@ jobs:
         script: |
           cd public_html/travaux/wr506-symfony
 
-          # Mettre à jour le code avec git pull
+          echo "Debugging Database Connection (Before Git Pull):"
           git pull origin main
 
-          # Mettre à jour le schéma de la base de données
-          php bin/console doctrine:schema:update --force
+          echo "Debugging Database Connection (After Git Pull):"
+          echo "Content of .env file:"
+          cat .env
 
-          # Installer les dépendances Symfony
-          composer install --no-interaction
+          composer install
+          php bin/console c:c
+          php bin/console d:s:u --complete --force
 
-          # Charger les fixtures
           php bin/console doctrine:fixtures:load --no-interaction || (echo "Fixture loading failed" && exit 1)
 
-          # Afficher un message de déploiement réussi
           echo "Deployment successful"
