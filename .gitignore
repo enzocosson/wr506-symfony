@@ -1,7 +1,5 @@
 
 ###> symfony/framework-bundle ###
-.env
-/.env
 /.env.test
 /.env.local
 /.env.local.php
@@ -27,7 +25,6 @@
 ###< lexik/jwt-authentication-bundle ###
 
 # Ignorer les fichiers d'environnement
-.env
 .env.local
 .env.*.local
 
