@@ -8,6 +8,9 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Metadata\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Doctrine\Orm\Filter\RangeFilter;
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ActorRepository::class)]
@@ -24,12 +27,14 @@ class Actor
 
     #[ORM\Column(length: 50)]
     #[Groups(['actor:read', 'movie:read', 'nationalite:read'])]
-    #[Assert\Length(min: 2, max: 50, maxMessage: 'Ecrire votre message en 50 caractères ou moins.')]
+    #[Assert\Length(min: 2, max: 50, maxMessage: 'Ecrire votre message en 50 caractères ou moins.')]    
+    #[ApiFilter(SearchFilter::class, strategy: 'partial')]
     private ?string $firstName = null;
 
     #[ORM\Column(length: 50)]
     #[Groups(['actor:read', 'movie:read', 'nationalite:read'])]
     #[Assert\Length(min: 2, max: 50, maxMessage: 'Ecrire votre message en 50 caractères ou moins.')]
+    #[ApiFilter(SearchFilter::class, strategy: 'partial')]
     private ?string $lastName = null;
 
     #[ORM\ManyToMany(targetEntity: Movie::class, mappedBy: 'actors', cascade: ['persist'])]
