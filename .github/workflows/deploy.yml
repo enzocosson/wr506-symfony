@@ -23,7 +23,7 @@ jobs:
         PORT: ${{ secrets.PORT }}
         KEY: ${{ secrets.SSHKEY }}
         script: |
-          cd public_html/travaux/wr506-symfony
+          cd public_html/symfony-s5
 
           echo "Debugging Database Connection (Before Git Pull):"
           git pull origin main
