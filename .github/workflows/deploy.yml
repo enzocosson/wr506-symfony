@@ -14,7 +14,6 @@ jobs:
           echo "Username: ${{ secrets.USERNAME }}"
           echo "Port: ${{ secrets.PORT }}"
           echo "SSH Key: ${{ secrets.SSHKEY }}"
-
       - name: Deploy
         uses: appleboy/ssh-action@master
         with:
@@ -23,21 +22,27 @@ jobs:
           PORT: ${{ secrets.PORT }}
           KEY: ${{ secrets.SSHKEY }}
           script: |
-            cd public_html/
-            git clone https://github.com/enzocosson/wr506-symfony.git
-            cd wr506-symfony/
-
+            cd public_html/wr506-symfony
             echo "Debugging Database Connection (Before Git Pull):"
             git pull origin main
-
             echo "Debugging Database Connection (After Git Pull):"
             echo "Content of .env file:"
             cat .env
-
             composer install
             php bin/console c:c
             php bin/console d:s:u --complete --force
-
             php bin/console doctrine:fixtures:load --no-interaction || (echo "Fixture loading failed" && exit 1)
-
             echo "Deployment successful"
+
+
+
+
+
+
+
+
+
+
+
+
+
