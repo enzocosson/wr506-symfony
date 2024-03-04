@@ -31,3 +31,5 @@
 # Ignorer les fichiers de configuration PHPUnit
 /phpunit.xml
 .phpunit.result.cache
+
+/Postman
