@@ -16,13 +16,18 @@ jobs:
         KEY: ${{ secrets.SSHKEY }}
         script: |
           cd public_html/travaux/wr506-symfony
-          git fetch
-          git reset --hard origin/main
-          
+
+          # Mettre à jour le code avec git pull
+          git pull origin main
+
+          # Mettre à jour le schéma de la base de données
           php bin/console doctrine:schema:update --force
 
+          # Installer les dépendances Symfony
           composer install --no-interaction
 
+          # Charger les fixtures
           php bin/console doctrine:fixtures:load --no-interaction || (echo "Fixture loading failed" && exit 1)
 
+          # Afficher un message de déploiement réussi
           echo "Deployment successful"
