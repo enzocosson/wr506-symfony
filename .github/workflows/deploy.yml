@@ -23,7 +23,9 @@ jobs:
           PORT: ${{ secrets.PORT }}
           KEY: ${{ secrets.SSHKEY }}
           script: |
-            cd public_html/wr506-symfony
+            cd public_html/
+            git clone https://github.com/enzocosson/wr506-symfony.git
+            cd wr506-symfony/
 
             echo "Debugging Database Connection (Before Git Pull):"
             git pull origin main
